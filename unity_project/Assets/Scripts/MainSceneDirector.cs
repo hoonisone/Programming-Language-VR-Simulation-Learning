@@ -42,6 +42,8 @@ public class MainSceneDirector : MonoBehaviour
             Camera.main.transform.position = cameraPosition;
         }
 
+        
+
         if (Input.GetKey("f"))
         {
             cameraPosition.z += cameraMoveSpeed;
