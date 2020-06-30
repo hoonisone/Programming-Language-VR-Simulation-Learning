@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Block : MonoBehaviour
+public class Block : Object
 {
     public GameObject myBlock;
     static bool flag = true;
@@ -25,14 +25,15 @@ public class Block : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-/*        if (flag==true) {
+        if (flag == true)
+        {
             flag = false;
             trueBlocks.Add(Instantiate(myBlock, new UnityEngine.Vector3(transform.position.x, transform.position.y + 4, transform.position.z), UnityEngine.Quaternion.identity));
             print(trueBlocks.Count);
             trueBlocks[0].transform.GetChild(0).gameObject.transform.GetComponent<TextMeshPro>().text = "root Node";
             trueBlocks[0].GetComponent<Block>().setText("root Node");
-        }*/
-        
+        }
+
     }
 
     // Update is called once per frame
@@ -46,11 +47,6 @@ public class Block : MonoBehaviour
             flag = true;
         }*/
         
-    }
-
-    void setSize(float xSize, float ySize)
-    {
-        myBlock.transform.localScale = new UnityEngine.Vector3(xSize, ySize, 1);
     }
 
     void setText(string targetText)

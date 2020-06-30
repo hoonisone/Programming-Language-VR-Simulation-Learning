@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface Condition
 {
-    abstract public bool conditionCheck();
+    bool conditionCheck();
 }

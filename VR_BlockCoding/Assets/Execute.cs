@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface Execute
 {
-    abstract public void execute();
+    void execute();
 }
