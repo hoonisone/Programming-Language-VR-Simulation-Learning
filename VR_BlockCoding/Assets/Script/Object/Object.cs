@@ -75,7 +75,7 @@ public abstract class Object : MonoBehaviour
     {
         return transform.position.y;
     }
-    public void SetPositiony(float y)
+    public void SetPositionY(float y)
     {
         Vector3 position = transform.position;
         position.y = y;

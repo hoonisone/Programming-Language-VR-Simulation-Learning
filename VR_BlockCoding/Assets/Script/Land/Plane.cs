@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Plane : AdjustObject
+public abstract class Plane : MoveObject
 {
     override public void CustomAwake()
     {

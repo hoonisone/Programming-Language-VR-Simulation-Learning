@@ -65,6 +65,8 @@
   <ItemGroup>
     <Compile Include="Assets\Script\AdjustStrategy\MultipleAdjustStrategy.cs" />
     <Compile Include="Assets\Script\AdjustStrategy\ScaleSizeAdjustStrategy.cs" />
+    <Compile Include="Assets\Script\Character\Character.cs" />
+    <Compile Include="Assets\Script\Character\MainCharacter.cs" />
     <Compile Include="Assets\Script\CodeBlock\Block.cs" />
     <Compile Include="Assets\Script\CodeBlock\Condition.cs" />
     <Compile Include="Assets\Script\CodeBlock\DefaultCondition.cs" />
@@ -74,9 +76,9 @@
     <Compile Include="Assets\Script\Land\Plane.cs" />
     <Compile Include="Assets\Script\Land\RoomLand.cs" />
     <Compile Include="Assets\Script\Land\XZPlane.cs" />
-    <Compile Include="Assets\Script\MainCharacter.cs" />
     <Compile Include="Assets\Script\MainDirector.cs" />
     <Compile Include="Assets\Script\Object\AdjustObject.cs" />
+    <Compile Include="Assets\Script\Object\MoveObject.cs" />
     <Compile Include="Assets\Script\Object\Object.cs" />
     <Compile Include="Assets\Script\Obstacle.cs" />
     <Compile Include="Assets\Script\PlaneObject.cs" />
