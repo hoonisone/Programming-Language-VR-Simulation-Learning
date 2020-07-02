@@ -10,6 +10,7 @@ public class Character : MoveObject
     State state = State.REST;
     Vector3 starting;
     Vector3 destination;
+    float progress;
     override public void CustomAwake()
     {
         base.CustomAwake();
@@ -22,25 +23,37 @@ public class Character : MoveObject
     public override void CustomUpdate()
     {
         base.CustomUpdate();
+        float hope, cur, workload;
         switch (state)
         {
             case State.REST:
                 break;
             case State.MOVE_FORWARD:
-                transform.Translate(GetDirection() * Time.deltaTime * speed);
-                float hope = Vector3.Distance(starting, destination);
-                float cur = Vector3.Distance(starting, GetPosition());
-                if (cur >= hope)
+                transform.position = Vector3.MoveTowards(transform.position, destination, speed * Time.deltaTime);
+                if(destination == GetPosition())
                 {
-                    SetPosition(destination);
                     state = State.REST;
                 }
                 break;
             case State.TURN_RIGHT:
-                transform.Rotate(-Vector3.up * Time.deltaTime * speed);
+                workload = Time.deltaTime * speed*20;
+                transform.Rotate(Vector3.up * workload);
+                progress += workload;
+                if (progress >= 90)
+                {
+                    SetRotation(destination);
+                    state = State.REST;
+                }
                 break;
             case State.TURN_LEFT:
-                transform.Rotate(Vector3.up * Time.deltaTime * speed);
+                workload = Time.deltaTime * speed*20;
+                transform.Rotate(-Vector3.up * workload);
+                progress += workload;
+                if (progress >= 90)
+                {
+                    SetRotation(destination);
+                    state = State.REST;
+                }
                 break;
             default:
                 break;
@@ -57,7 +70,9 @@ public class Character : MoveObject
     {
         if (state == State.REST)
         {
-
+            starting = transform.rotation.eulerAngles;
+            destination = transform.rotation.eulerAngles - Vector3.up * 90;
+            progress = 0;
             state = State.TURN_LEFT;
         }
     }
@@ -65,7 +80,10 @@ public class Character : MoveObject
     {
         if (state == State.REST)
         {
-
+            starting = transform.rotation.eulerAngles;
+            destination = transform.rotation.eulerAngles + Vector3.up * 90;
+            progress = 0;
+            state = State.TURN_RIGHT;
         }
     }
 
@@ -74,7 +92,8 @@ public class Character : MoveObject
         if(state == State.REST)
         {
             starting = GetPosition();
-            destination = starting + GetDirection() * GetSizeZ();
+            destination = starting + Vector3.forward * GetSizeZ();
+            progress = 0;
             state = State.MOVE_FORWARD;
         }
     }

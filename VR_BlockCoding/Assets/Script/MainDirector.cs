@@ -21,11 +21,18 @@ public class MainDirector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("a"))
+        if (Input.GetKey(KeyCode.UpArrow))
         {
             mainCharacter.GetComponent<MainCharacter>().MoveForward();
         }
-
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            mainCharacter.GetComponent<MainCharacter>().TurnRight();
+        }
+        if(Input.GetKey(KeyCode.LeftArrow))
+        {
+            mainCharacter.GetComponent<MainCharacter>().TurnLeft();
+        }
         /*        obstacles[1].GetComponent<Obstacle>
                 Debug.LogError("Main Director Update");*/
     }

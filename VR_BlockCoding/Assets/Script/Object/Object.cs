@@ -121,4 +121,14 @@ public abstract class Object : MonoBehaviour
         scale.z = z;
         transform.localScale = scale;
     }
+
+    public void SetRotation(Vector3 rotation)
+    {
+        transform.rotation = Quaternion.Euler(rotation);
+    }
+
+    public Vector3 GetRotation()
+    {
+        return transform.rotation.eulerAngles;
+    }
 }
