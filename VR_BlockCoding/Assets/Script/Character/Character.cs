@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Character : MoveObject
 {
-    private float speed = 5;
+    private float speed = 15;
     private enum State { REST, TURN_LEFT, TURN_RIGHT, MOVE_FORWARD };
     State state = State.REST;
     Vector3 starting;
@@ -92,7 +92,7 @@ public class Character : MoveObject
         if(state == State.REST)
         {
             starting = GetPosition();
-            destination = starting + Vector3.forward * GetSizeZ();
+            destination = starting + transform.forward.normalized * GetSizeZ();
             progress = 0;
             state = State.MOVE_FORWARD;
         }
