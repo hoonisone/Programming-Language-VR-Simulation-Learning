@@ -16,6 +16,14 @@ public class MainDirector : MonoBehaviour
         land = LandInitialization(land);
         obstacles = ObstaclesInitialization(obstacles, land);
         mainCharacter = MainCharacterInitialization(mainCharacter);
+        GameObject a = GameObject.Find("Main").transform.GetChild(0).gameObject;
+        GameObject b = GameObject.Find("RealWorld").transform.GetChild(0).gameObject;
+        GameObject c = GameObject.Find("RealWorld").transform.GetChild(1).GetChild(0).GetChild(1).gameObject;
+        GameObject d = GameObject.Find("BlockCoding").transform.GetChild(0).gameObject;
+        c.SetActive(true);
+        a.SetActive(false);
+        b.SetActive(false);
+        d.SetActive(false);
     }
 
     // Update is called once per frame
