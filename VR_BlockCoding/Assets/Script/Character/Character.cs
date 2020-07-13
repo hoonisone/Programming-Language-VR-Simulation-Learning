@@ -18,7 +18,6 @@ public class Character : MoveObject
     public override void CustomStart()
     {
         base.CustomStart();
-        SetScaleSizeAdjustStrategy(new MultipleAdjustStrategy());
     }
     public override void CustomUpdate()
     {

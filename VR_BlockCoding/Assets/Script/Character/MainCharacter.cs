@@ -12,11 +12,11 @@ public class MainCharacter : Character
     public override void CustomStart()
     {
         base.CustomStart();
-        SetScaleSizeAdjustStrategy(new MultipleAdjustStrategy(2));
+        SetScaleSizeRatio(2);
 
     }
-/*    public override void CustomUpdate()
-    {
-        base.CustomUpdate();
-    }*/
+    /*    public override void CustomUpdate()
+        {
+            base.CustomUpdate();
+        }*/
 }

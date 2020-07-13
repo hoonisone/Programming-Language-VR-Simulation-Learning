@@ -5,7 +5,7 @@ using UnityEngine;
 public class AdjustObject : Object
 {
     // Start is called before the first frame update
-    private ScaleSizeAdjustStrategy scaleSizeAdjustStrategy;
+    float scaleSizeRatio = 1;
     override public void CustomAwake()
     {
         base.CustomAwake();
@@ -19,22 +19,22 @@ public class AdjustObject : Object
         base.CustomUpdate();
     }
     /////////////////////////////////////////////////////////////////////////////////////
-    public ScaleSizeAdjustStrategy GetScaleSizeAdjustStrategy()
+
+    public void SetScaleSizeRatio(float scaleSizeRatio)
     {
-        return scaleSizeAdjustStrategy;
-    }
-    public void SetScaleSizeAdjustStrategy(ScaleSizeAdjustStrategy scaleSizeConvertStrategy)
-    {
-        this.scaleSizeAdjustStrategy = scaleSizeConvertStrategy;
+        this.scaleSizeRatio = scaleSizeRatio;
     }
 
-
+    public float GetScaleSizeRatio()
+    {
+        return this.scaleSizeRatio;
+    }
 
     public void SetSize(Vector3 size)
     {
-        float scaleX = scaleSizeAdjustStrategy.ConvertXSizeToScale(size.x);
-        float scaleY = scaleSizeAdjustStrategy.ConvertXSizeToScale(size.y);
-        float scaleZ = scaleSizeAdjustStrategy.ConvertXSizeToScale(size.z);
+        float scaleX = size.x / scaleSizeRatio;
+        float scaleY = size.y / scaleSizeRatio;
+        float scaleZ = size.z / scaleSizeRatio;
         Vector3 scale = new Vector3(scaleX, scaleY, scaleZ);
         SetScale(scale);
     }
@@ -42,39 +42,39 @@ public class AdjustObject : Object
     public Vector3 GetSize()
     {
         Vector3 scale = GetScale();
-        float sizeX = scaleSizeAdjustStrategy.ConvertXScaleToSize(scale.x);
-        float sizeY = scaleSizeAdjustStrategy.ConvertXScaleToSize(scale.y);
-        float sizeZ = scaleSizeAdjustStrategy.ConvertXScaleToSize(scale.z);
+        float sizeX = scale.x * scaleSizeRatio;
+        float sizeY = scale.y * scaleSizeRatio;
+        float sizeZ = scale.z * scaleSizeRatio;
         return new Vector3(sizeX, sizeY, sizeZ);
     }
 
     public float GetSizeX()
     {
-        return scaleSizeAdjustStrategy.ConvertXScaleToSize(GetScaleX());
+        return GetScaleX() * scaleSizeRatio;
     }
 
     public void SetSizeX(float sizeX)
     {
-        SetScaleX(scaleSizeAdjustStrategy.ConvertXSizeToScale(sizeX));
+        SetScaleX(sizeX/ scaleSizeRatio);
     }
 
     public float GetSizeY()
     {
-        return scaleSizeAdjustStrategy.ConvertXScaleToSize(GetScaleY());
+        return GetScaleY() * scaleSizeRatio;
     }
 
     public void SetSizeY(float sizeY)
     {
-        SetScaleY(scaleSizeAdjustStrategy.ConvertXSizeToScale(sizeY));
+        SetScaleY(sizeY/ scaleSizeRatio);
     }
 
     public float GetSizeZ()
     {
-        return scaleSizeAdjustStrategy.ConvertXScaleToSize(GetScaleZ());
+        return GetScaleZ() * scaleSizeRatio;
     }
 
     public void SetSizeZ(float sizeZ)
     {
-        SetScaleZ(scaleSizeAdjustStrategy.ConvertXSizeToScale(sizeZ));
+        SetScaleZ(sizeZ / scaleSizeRatio);
     }
 }

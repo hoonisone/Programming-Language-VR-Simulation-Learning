@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void BlockDown(Vector3 downLocation);
 public class MainDirector : MonoBehaviour
 {
+    public event BlockDown blockDown;
+    public void CreateEventBlockDown(Vector3 downLocation){ blockDown(downLocation);}
+
     // Start is called before the first frame update
     /* GameObject Object = Instantiate
      GameObject Object = Instantiate(myBlock, new UnityEngine.Vector3(transform.position.x, transform.position.y + 4, transform.position.z), UnityEngine.Quaternion.identity);
@@ -20,12 +24,24 @@ public class MainDirector : MonoBehaviour
         GameObject b = GameObject.Find("RealWorld").transform.GetChild(0).gameObject;
         GameObject c = GameObject.Find("RealWorld").transform.GetChild(1).GetChild(0).GetChild(1).gameObject;
         GameObject d = GameObject.Find("BlockCoding").transform.GetChild(0).gameObject;
-        c.SetActive(true);
+        
+        //c.SetActive(true);
+        c.SetActive(false);
         a.SetActive(false);
         b.SetActive(false);
-        d.SetActive(false);
-    }
+        d.SetActive(true);
+        //d.SetActive(false);
 
+        GameObject block = Instantiate(Resources.Load("ExecuteBlock")) as GameObject;
+        block.gameObject.transform.position = new Vector3(0, 5, 0);
+        block.AddComponent<ExecuteBlock>();
+        block.GetComponent<ExecuteBlock>().execute();
+
+        GameObject block2 = Instantiate(Resources.Load("ExecuteBlock")) as GameObject;
+        block2.gameObject.transform.position = new Vector3(0, 5, 0);
+        block2.AddComponent<ExecuteBlock>();
+
+    }
     // Update is called once per frame
     void Update()
     {

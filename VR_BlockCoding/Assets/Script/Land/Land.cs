@@ -7,7 +7,7 @@ public class Land : XZPlane
     override public void CustomAwake()
     {
         base.CustomAwake();
-        SetScaleSizeAdjustStrategy(new MultipleAdjustStrategy(10));
+        SetScaleSizeRatio(10);
     }
     public override void CustomStart()
     {

@@ -6,80 +6,23 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Block : Object
+abstract public class Block : MoveObject
 {
-    public GameObject myBlock;
-    static bool flag = true;
-    List<GameObject> trueBlocks = new List<GameObject>();
-    List<GameObject> falseBlocks = new List<GameObject>();
-
-    private Execute execute = null;
-    private Condition condition = null;
-
-    public Block(Execute execute, Condition condition)
+    override public void CustomAwake()
     {
-        this.execute = execute;
-        this.condition = condition;
+        base.CustomAwake();
     }
-
-    // Start is called before the first frame update
-    void Start()
+    public override void CustomStart()
     {
-        if (flag == true)
-        {
-            flag = false;
-            trueBlocks.Add(Instantiate(myBlock, new UnityEngine.Vector3(transform.position.x, transform.position.y + 4, transform.position.z), UnityEngine.Quaternion.identity));
-            print(trueBlocks.Count);
-            trueBlocks[0].transform.GetChild(0).gameObject.transform.GetComponent<TextMeshPro>().text = "root Node";
-            trueBlocks[0].GetComponent<Block>().setText("root Node");
-        }
-
+        base.CustomStart();
     }
-
-    // Update is called once per frame
-    void Update()
+    public override void CustomUpdate()
     {
-/*        if (flag == false)
-        {
-            insertBlockInTrueBlocks(10, gameObject);
-            trueBlocks[0].GetComponent<Block>().setText("root Node");
-            setTranslate(10, 20, 10);
-            flag = true;
-        }*/
-        
+        base.CustomUpdate();
     }
+    /////////////////////////////////////////////////////////////////////////////////////
 
-    void setText(string targetText)
-    {
-        GameObject myText = myBlock.transform.GetChild(0).gameObject;
-        myText.transform.GetComponent<TextMeshPro>().text = targetText;
-    }
-
-    void setTranslate(float x, float y, float z)
-    {
-        gameObject.transform.position = new Vector3(x, y, z);
-    }
-
-    void insertBlockInTrueBlocks(int idx, GameObject obj)
-    {
-        try
-        {
-            trueBlocks.Insert(idx, obj);
-        }
-        catch(ArgumentOutOfRangeException e)
-        {
-            Debug.LogError(e.Message);
-        }
-    }
-
-    int getTrueBlocksSize()
-    {
-        return trueBlocks.Count;
-    }
-
-    int getFalseBlocksSize()
-    {
-        return falseBlocks.Count;
-    }
+    abstract public void setName(string targetText);
+    abstract public void execute();
     
 }

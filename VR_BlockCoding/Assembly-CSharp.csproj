@@ -63,15 +63,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Script\AdjustStrategy\MultipleAdjustStrategy.cs" />
-    <Compile Include="Assets\Script\AdjustStrategy\ScaleSizeAdjustStrategy.cs" />
+    <Compile Include="Assets\Script\BlockMenu.cs" />
     <Compile Include="Assets\Script\Character\Character.cs" />
     <Compile Include="Assets\Script\Character\MainCharacter.cs" />
     <Compile Include="Assets\Script\CodeBlock\Block.cs" />
-    <Compile Include="Assets\Script\CodeBlock\Condition.cs" />
-    <Compile Include="Assets\Script\CodeBlock\DefaultCondition.cs" />
-    <Compile Include="Assets\Script\CodeBlock\DefaultExecute.cs" />
-    <Compile Include="Assets\Script\CodeBlock\Execute.cs" />
+    <Compile Include="Assets\Script\CodeBlock\ExecuteBlock.cs" />
+    <Compile Include="Assets\Script\CodeBlock\StartBlock.cs" />
     <Compile Include="Assets\Script\Land\Land.cs" />
     <Compile Include="Assets\Script\Land\Plane.cs" />
     <Compile Include="Assets\Script\Land\RoomLand.cs" />
