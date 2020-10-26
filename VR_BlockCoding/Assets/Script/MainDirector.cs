@@ -33,14 +33,17 @@ public class MainDirector : MonoBehaviour
         //d.SetActive(false);
 
         GameObject block = Instantiate(Resources.Load("ExecuteBlock")) as GameObject;
-        block.gameObject.transform.position = new Vector3(0, 5, 0);
+        block.gameObject.transform.position = new Vector3(1, 6, 0);
         block.AddComponent<ExecuteBlock>();
         block.GetComponent<ExecuteBlock>().execute();
 
         GameObject block2 = Instantiate(Resources.Load("ExecuteBlock")) as GameObject;
-        block2.gameObject.transform.position = new Vector3(0, 5, 0);
+        block2.gameObject.transform.position = new Vector3(3, 4, 0);
         block2.AddComponent<ExecuteBlock>();
 
+        GameObject block3 = Instantiate(Resources.Load("ExecuteBlock")) as GameObject;
+        block3.gameObject.transform.position = new Vector3(5, 2, 0);
+        block3.AddComponent<ExecuteBlock>();
     }
     // Update is called once per frame
     void Update()
