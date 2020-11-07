@@ -70,7 +70,10 @@
     <Compile Include="Assets\3rdPerson+Fly\Scripts\PlayerScripts\BasicBehaviour.cs" />
     <Compile Include="Assets\3rdPerson+Fly\Scripts\PlayerScripts\FlyBehaviour.cs" />
     <Compile Include="Assets\3rdPerson+Fly\Scripts\PlayerScripts\MoveBehaviour.cs" />
-    <Compile Include="Assets\Player\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\ButtonController.cs" />
+    <Compile Include="Assets\Scripts\MainController.cs" />
+    <Compile Include="Assets\Scripts\MyValueController.cs" />
+    <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\VRInteractions\Examples\Assets\Scripts\Bob.cs" />
     <Compile Include="Assets\VRInteractions\Examples\Assets\Scripts\FadeIn.cs" />
     <Compile Include="Assets\VRInteractions\Examples\Assets\Scripts\LightController.cs" />
@@ -82,14 +85,6 @@
     <Compile Include="Assets\VRInteractions\Examples\Shared\Utilities\Actions\UnityAction.cs" />
     <Compile Include="Assets\VRInteractions\Examples\Shared\Utilities\ExposableProperties\ExposableMonobehavior.cs" />
     <Compile Include="Assets\VRInteractions\Examples\Shared\Utilities\ExposableProperties\ExposePropertyAttribute.cs" />
-    <Compile Include="Assets\VRInteractions\Prefabs\Physics\OutputLeverController.cs" />
-    <Compile Include="Assets\VRInteractions\Prefabs\Physics\inputLeverController.cs" />
-    <Compile Include="Assets\VRInteractions\Scripts\VRButton.cs" />
-    <Compile Include="Assets\VRInteractions\Scripts\VRGrippedButton.cs" />
-    <Compile Include="Assets\VRInteractions\Scripts\VRGripper.cs" />
-    <Compile Include="Assets\VRInteractions\Scripts\VRHandle.cs" />
-    <Compile Include="Assets\VRInteractions\Scripts\VRInteractable.cs" />
-    <Compile Include="Assets\VRInteractions\Scripts\VRLever.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

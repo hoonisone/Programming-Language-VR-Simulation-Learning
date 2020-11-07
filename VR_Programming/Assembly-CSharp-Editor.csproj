@@ -63,6 +63,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\EditorTimers\Scripts\DeadlineTimer.cs" />
+    <Compile Include="Assets\Editor\EditorTimers\Scripts\TaskTimer.cs" />
     <Compile Include="Assets\VRInteractions\Examples\Shared\Editor\Actions\ActionDrawer.cs" />
     <Compile Include="Assets\VRInteractions\Examples\Shared\Editor\ExposeProperties\ExposableMonobehaviorEditor.cs" />
     <Compile Include="Assets\VRInteractions\Examples\Shared\Editor\ExposeProperties\ExposeProperties.cs" />
