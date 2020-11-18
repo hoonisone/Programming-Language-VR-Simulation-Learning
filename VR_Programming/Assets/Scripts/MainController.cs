@@ -20,7 +20,7 @@ public class MainController : MonoBehaviour
             {
                 ButtonController c = hit.transform.gameObject.GetComponent<ButtonController>();
                 if (c != null)
-                    c.excute(0);
+                    c.excute("down", "left");
             }
 
         }
@@ -30,9 +30,26 @@ public class MainController : MonoBehaviour
             {
                 ButtonController c = hit.transform.gameObject.GetComponent<ButtonController>();
                 if (c != null)
-                    c.excute(1);
+                    c.excute("down", "right");
             }
 
+        }else if (Input.GetMouseButtonUp(0)){
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit))
+            {
+                ButtonController c = hit.transform.gameObject.GetComponent<ButtonController>();
+                if (c != null)
+                    c.excute("up", "left");
+            }
+        }else if (Input.GetMouseButtonUp(1))
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit))
+            {
+                ButtonController c = hit.transform.gameObject.GetComponent<ButtonController>();
+                if (c != null)
+                    c.excute("up", "right");
+            }
         }
     }
 }
