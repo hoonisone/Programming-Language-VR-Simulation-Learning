@@ -28,6 +28,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class OVRPlayerController : MonoBehaviour
 {
+	public delegate void Action();
 	/// <summary>
 	/// The rate acceleration during movement.
 	/// </summary>

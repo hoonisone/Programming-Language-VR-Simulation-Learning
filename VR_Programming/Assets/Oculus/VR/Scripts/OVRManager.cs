@@ -35,6 +35,7 @@ using UnityEditor;
 /// </summary>
 public class OVRManager : MonoBehaviour
 {
+	public delegate void Action();
 	public enum TrackingOrigin
 	{
 		EyeLevel   = OVRPlugin.TrackingOrigin.EyeLevel,
