@@ -5,26 +5,27 @@ public class Evaluator
 {
     List<EvaluationItem> items;
 
-    public string getReportCard(ActionTypeRecorder actionTypeRecorder)
+    public string getReportCard(ActionRecorder actionRecorder)
     {
         foreach(EvaluationItem item in items)
         {
             int count = 0;
-            foreach(ActionType type in item.Types)
+            foreach(Action action in item.Actions)
             {
-                count += actionTypeRecorder.getCount(type);
+                count += actionRecorder.getCount(action);
             }
         }
+        // 미완성
         return "score is null";
     }
     public Evaluator()
     {
         EvaluationItem evaluetionItem;
         evaluetionItem = new EvaluationItem();
-        evaluetionItem.AddType(new ActionType(ObjectType.Variable, MotionType.Read));
+        evaluetionItem.AddType(new Action(ObjectType.Variable, MotionType.Read));
         AddItem(evaluetionItem);
         evaluetionItem = new EvaluationItem();
-        evaluetionItem.AddType(new ActionType(ObjectType.Operator, MotionType.Execute));
+        evaluetionItem.AddType(new Action(ObjectType.Operator, MotionType.Execute));
         AddItem(evaluetionItem);
     }
 
@@ -37,13 +38,13 @@ public class Evaluator
 class EvaluationItem
 {
     private string name;
-    private List<ActionType> types;
+    private List<Action> actions;
 
     public string Name { get => name; set => name = value; }
-    public List<ActionType> Types { get => types; set => types = value; }
+    public List<Action> Actions { get => actions; set => actions = value; }
 
-    public void AddType(ActionType actionType)
+    public void AddType(Action action)
     {
-        Types.Add(actionType);
+        actions.Add(action);
     }
 }
