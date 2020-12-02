@@ -14,14 +14,19 @@ public class ScriptController : MonoBehaviour
     string[] script;
     string[] scriptIndex;
 
-
-    public void SetLine(string[] tscript)
+    public ScriptController(string textScript)
     {
+        SetLine(textScript);
+    }
+
+    public void SetLine(string textScript)
+    {
+        string[] tempScript = textScript.Split('\n');
         //find textmeshpro
         ScriptText = GameObject.Find("ScriptText").gameObject.GetComponent<TextMeshPro>();
         ScriptIdx = GameObject.Find("ScriptIdx").gameObject.GetComponent<TextMeshPro>();
 
-        nLines = tscript.Length;
+        nLines = tempScript.Length;
         script = new string[nLines + maxLines];
         scriptIndex = new string[nLines + maxLines];
 
@@ -34,7 +39,7 @@ public class ScriptController : MonoBehaviour
         for (; i < nLines + maxLines / 2; i++)
         {
             scriptIndex[i] = i - maxLines / 2 + 1 + "";
-            script[i] = "| " + tscript[i - maxLines / 2];
+            script[i] = "| " + tempScript[i - maxLines / 2];
         }
         for (; i < nLines + maxLines; i++)
         {

@@ -109,4 +109,6 @@ public class Action
                 return Performer.User;
         }
     }
+
+    public string State { get => performer.ToString() + " " + motionType.ToString() + " " + ObjectType.ToString() + " " + name; }
 }

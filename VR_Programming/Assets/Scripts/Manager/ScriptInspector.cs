@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class ScriptInspector
 {
@@ -29,17 +30,17 @@ public class ScriptInspector
     {
         if (CurAction.Performer.Equals(Performer.Auto))
         {
-            if(CurAction.ObjectType.Equals(ObjectType.Control) && CurAction.MotionType.Equals(MotionType.Jump))
+            if (CurAction.ObjectType.Equals(ObjectType.Control) && CurAction.MotionType.Equals(MotionType.Jump))
             {
-                if (message.Equals("true"))
+                if (message.Equals("False"))
                 {
-                    CurLineIdx = CurLineIdx + CurAction.JumpSize;
+                    Jump(CurAction.JumpSize);
                     CurLineInspector.Init();
                 }
                 else
                 {
                     CurLineInspector.Init();
-                    CurLineIdx++;
+                    Next();
                 }
             }
         }
@@ -62,6 +63,7 @@ public class ScriptInspector
 
     public bool IsFinished()
     {
+
         if(lineList.Count <= CurLineIdx)
         {
             return true;
@@ -107,4 +109,6 @@ public class ScriptInspector
     }
 
     public int CurLineIdx { get => curLineIdx; set => curLineIdx = value; }
+
+    public int Line { get => curLineIdx + 1; }
 }

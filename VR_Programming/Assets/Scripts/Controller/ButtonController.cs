@@ -14,8 +14,9 @@ public class ButtonController : MonoBehaviour
     GameObject upLever;
     GameObject downLever;
     MyValueController myValue;
-    GameObject constantView;
+    GameObject constant;
     AudioSource[] audioSources;
+    GameController gameController;
     // Start is called before the first frame update
     void Start()
     {   
@@ -23,20 +24,22 @@ public class ButtonController : MonoBehaviour
         {
             case "inputLever":
             case "outputLever":
+            case "operatorLever":
                 upLever = transform.Find("Handle(up)").gameObject;
                 downLever = transform.Find("Handle(down)").gameObject;
                 break;
             case "constantReset":
-                constantView = GameObject.FindWithTag("ConstantView");
+                constant = GameObject.FindWithTag("Constant");
                 break;
-            case "constant":
-                constantView = GameObject.FindWithTag("ConstantView");
+            case "number":
+                constant = GameObject.FindWithTag("Constant");
                 break;
             default:
                 break;
         }
         myValue = GameObject.FindWithTag("MyValue").GetComponent<MyValueController>();
         audioSources = gameObject.GetComponents<AudioSource>();
+        gameController = GameObject.FindWithTag("GameDirector").GetComponent<GameController>();
     }
 
     // Update is called once per frame
@@ -47,21 +50,124 @@ public class ButtonController : MonoBehaviour
 
         switch (type)
         {
-            case "constant":        constantControll    (mouseEvent, mouseButton); break;
-            case "constantView":    constantViewControll(mouseEvent, mouseButton); break;
+            case "number":          numberControll(mouseEvent, mouseButton); break;
+            case "constant":        constantControll(mouseEvent, mouseButton); break;
             case "constantReset":   constantResetControll(mouseEvent, mouseButton); break;
             case "variable":        variableControll    (mouseEvent, mouseButton); break;
             case "input":           inputControll       (mouseEvent, mouseButton); break;
             case "output":          outputControll      (mouseEvent, mouseButton); break;
-            case "operater":        operaterControll    (mouseEvent, mouseButton); break;
-            case "parameter":       parameterControll   (mouseEvent, mouseButton); break;
-            case "return":          returnControll      (mouseEvent, mouseButton); break;
+            case "operator":        operatorControll    (mouseEvent, mouseButton); break;
+            case "operand":         operandControll(mouseEvent, mouseButton); break;
+            case "result":          resultControll(mouseEvent, mouseButton); break;
             case "inputLever":      inputLeverControll  (mouseEvent, mouseButton); break;
             case "outputLever":     outputLeverControll (mouseEvent, mouseButton); break;
+            case "operatorLever":   operatorLever(mouseEvent, mouseButton); break;
+            case "before":          beforeControll(mouseEvent, mouseButton); break;
+            case "next":            afterControll(mouseEvent, mouseButton); break;
+            case "condition":       conditionControll(mouseEvent, mouseButton); break;
         }
     }
 
-    private void constantViewControll(string mouseEvent, string mouseButton)
+    private void conditionControll(string mouseEvent, string mouseButton)
+    {
+        if (mouseEvent.Equals("up") && mouseButton.Equals("right"))
+        {
+            return;
+        }
+        else if (mouseEvent.Equals("up") && mouseButton.Equals("left"))
+        {
+            audioSources[1].Play();
+            return;
+        }
+        else if (mouseEvent.Equals("down") && mouseButton.Equals("right"))
+        {
+            return;
+        }
+        else if (mouseEvent.Equals("down") && mouseButton.Equals("left"))
+        {
+            audioSources[0].Play();
+            bool flag = sendAction(new Action(Performer.User, ObjectType.Condition, MotionType.Write, name), myValue.getValue());
+            if (flag)
+            {
+
+            }
+        }
+    }
+    
+    private void afterControll(string mouseEvent, string mouseButton)
+    {
+        if (mouseEvent.Equals("up") && mouseButton.Equals("right"))
+        {
+            return;
+        }
+        else if (mouseEvent.Equals("up") && mouseButton.Equals("left"))
+        {
+            audioSources[1].Play();
+            return;
+        }
+        else if (mouseEvent.Equals("down") && mouseButton.Equals("right"))
+        {
+            return;
+        }
+        else if (mouseEvent.Equals("down") && mouseButton.Equals("left"))
+        {
+            audioSources[0].Play();
+            gameController.OperatorController.NextSet();
+        }
+    }
+
+    private void beforeControll(string mouseEvent, string mouseButton)
+    {
+        if (mouseEvent.Equals("up") && mouseButton.Equals("right"))
+        {
+            return;
+        }
+        else if (mouseEvent.Equals("up") && mouseButton.Equals("left"))
+        {
+            audioSources[1].Play();
+            return;
+        }
+        else if (mouseEvent.Equals("down") && mouseButton.Equals("right"))
+        {
+            return;
+        }
+        else if (mouseEvent.Equals("down") && mouseButton.Equals("left"))
+        {
+            audioSources[0].Play();
+            gameController.OperatorController.BeforeSet();
+        }
+    }
+
+    private void operatorLever(string mouseEvent, string mouseButton)
+    {
+        
+        if (mouseEvent.Equals("up") && mouseButton.Equals("right"))
+        {
+            return;
+        }
+        else if (mouseEvent.Equals("up") && mouseButton.Equals("left"))
+        {
+            audioSources[1].Play();
+            downLever.SetActive(isUP);
+            isUP = !isUP;
+            upLever.SetActive(isUP);
+        }
+        else if (mouseEvent.Equals("down") && mouseButton.Equals("right"))
+        {
+            return;
+        }
+        else if (mouseEvent.Equals("down") && mouseButton.Equals("left"))
+        {
+            audioSources[0].Play();
+            downLever.SetActive(isUP);
+            isUP = !isUP;
+            upLever.SetActive(isUP);
+            gameController.OperatorController.NextGroup();
+
+        }
+    }
+
+    private void constantControll(string mouseEvent, string mouseButton)
     {
         //audioSources = gameObject.GetComponents<AudioSource>();
         MyValueController myValue = GameObject.FindWithTag("MyValue").GetComponent<MyValueController>();
@@ -76,7 +182,7 @@ public class ButtonController : MonoBehaviour
         else if (mouseEvent.Equals("down") && mouseButton.Equals("right"))
         {
             audioSources[0].Play();
-            bool flag = sendAction(new Action(Performer.User, ObjectType.Constant, MotionType.Read, name));
+            bool flag = sendAction(new Action(Performer.User, ObjectType.Constant, MotionType.Read, getValue()), "");
             if (flag)
             {
                 myValue.setValue(getValue());
@@ -106,7 +212,7 @@ public class ButtonController : MonoBehaviour
         else if (mouseEvent.Equals("down") && mouseButton.Equals("left"))
         {
             audioSources[0].Play();
-            constantView.transform.Find("Text (TMP)").GetComponent<TextMeshPro>().text = "0";
+            constant.transform.Find("Text (TMP)").GetComponent<TextMeshPro>().text = "0";
         }
     }
 
@@ -119,7 +225,7 @@ public class ButtonController : MonoBehaviour
     {
         return transform.Find("Text (TMP)").GetComponent<TextMeshPro>().text;
     }
-    void constantControll(string mouseEvent, string mouseButton){
+    void numberControll(string mouseEvent, string mouseButton){
         if (mouseEvent.Equals("up") && mouseButton.Equals("right")){
             return;
         }
@@ -130,8 +236,8 @@ public class ButtonController : MonoBehaviour
         }
         else if (mouseEvent.Equals("down") && mouseButton.Equals("left")){
             audioSources[0].Play();
-            string value = constantView.transform.Find("Text (TMP)").GetComponent<TextMeshPro>().text;
-            constantView.transform.Find("Text (TMP)").GetComponent<TextMeshPro>().text = (int.Parse(value) * 10 + int.Parse(getValue())).ToString();
+            string value = constant.transform.Find("Text (TMP)").GetComponent<TextMeshPro>().text;
+            constant.transform.Find("Text (TMP)").GetComponent<TextMeshPro>().text = (int.Parse(value) * 10 + int.Parse(getValue())).ToString();
         }
     }
     void variableControll(string mouseEvent, string mouseButton) {
@@ -143,7 +249,7 @@ public class ButtonController : MonoBehaviour
             return;
         }else if (mouseEvent.Equals("down") && mouseButton.Equals("right")){
             audioSources[0].Play();
-            bool flag = sendAction(new Action(Performer.User, ObjectType.Variable, MotionType.Read, name));
+            bool flag = sendAction(new Action(Performer.User, ObjectType.Variable, MotionType.Read, name), "");
             if (flag)
             {
                 myValue.setValue(getValue());
@@ -152,7 +258,7 @@ public class ButtonController : MonoBehaviour
         else if (mouseEvent.Equals("down") && mouseButton.Equals("left")){
             audioSources[0].Play();
             
-            bool flag = sendAction(new Action(Performer.User, ObjectType.Variable, MotionType.Write, name));
+            bool flag = sendAction(new Action(Performer.User, ObjectType.Variable, MotionType.Write, name), "");
             if (flag)
             {
                 setValue(myValue.getValue());
@@ -166,7 +272,7 @@ public class ButtonController : MonoBehaviour
             return;
         }else if (mouseEvent.Equals("down") && mouseButton.Equals("right")){
             audioSources[0].Play();
-            bool flag = sendAction(new Action(Performer.User, ObjectType.Input, MotionType.Read, name));
+            bool flag = sendAction(new Action(Performer.User, ObjectType.Input, MotionType.Read, name), "");
             if (flag)
             {
                 myValue.setValue(getValue());
@@ -187,14 +293,14 @@ public class ButtonController : MonoBehaviour
             return;
         }else if (mouseEvent.Equals("down") && mouseButton.Equals("left")){
             audioSources[0].Play();
-            bool flag = sendAction(new Action(Performer.User, ObjectType.Output, MotionType.Write, name));
+            bool flag = sendAction(new Action(Performer.User, ObjectType.Output, MotionType.Write, name), "");
             if (flag)
             {
                 setValue(myValue.getValue());
             }
         }
     }
-    void operaterControll(string mouseEvent, string mouseButton) {
+    void operatorControll(string mouseEvent, string mouseButton) {
         if (mouseEvent.Equals("up") && mouseButton.Equals("right")){
             return;
         }else if (mouseEvent.Equals("up") && mouseButton.Equals("left")){
@@ -203,10 +309,10 @@ public class ButtonController : MonoBehaviour
             return;
         }else if (mouseEvent.Equals("down") && mouseButton.Equals("left")){
             audioSources[0].Play();
-            bool flag = sendAction(new Action(Performer.User, ObjectType.Operator, MotionType.Execute, name));
+            bool flag = sendAction(new Action(Performer.User, ObjectType.Operator, MotionType.Execute, getValue()), "");
             if (flag)
             {
-                GameObject[] parameters = GameObject.FindGameObjectsWithTag("Parameter");
+                GameObject[] parameters = GameObject.FindGameObjectsWithTag("Operand");
                 ButtonController return_controller = GameObject.FindGameObjectWithTag("Return").GetComponent<ButtonController>();
                 int parameter_value1 = int.Parse(parameters[0].GetComponent<ButtonController>().getValue());
                 int parameter_value2 = int.Parse(parameters[1].GetComponent<ButtonController>().getValue());
@@ -225,17 +331,38 @@ public class ButtonController : MonoBehaviour
                         if (parameter_value2 == 0)
                             Debug.Log("Division by zero is not posible");
                         else
-                            return_controller.setValue((parameter_value1 / parameter_value2).ToString());
+                        return_controller.setValue((parameter_value1 / parameter_value2).ToString());
                         break;
                     case "%":
                         return_controller.setValue((parameter_value1 % parameter_value2).ToString());
+                        break;
+                    case "**":
+                        return_controller.setValue((parameter_value1 ^ parameter_value2).ToString());
+                        break;
+                    case "==":
+                        return_controller.setValue((parameter_value1 == parameter_value2).ToString());
+                        break;
+                    case "!=":
+                        return_controller.setValue((parameter_value1 != parameter_value2).ToString());
+                        break;
+                    case "<":
+                        return_controller.setValue((parameter_value1 < parameter_value2).ToString());
+                        break;
+                    case "<=":
+                        return_controller.setValue((parameter_value1 <= parameter_value2).ToString());
+                        break;
+                    case ">":
+                        return_controller.setValue((parameter_value1 > parameter_value2).ToString());
+                        break;
+                    case ">=":
+                        return_controller.setValue((parameter_value1 >= parameter_value2).ToString());
                         break;
                 }
             }
             
         }
     }
-    void parameterControll(string mouseEvent, string mouseButton){
+    void operandControll(string mouseEvent, string mouseButton){
         if (mouseEvent.Equals("up") && mouseButton.Equals("right")){
             return;
         }else if (mouseEvent.Equals("up") && mouseButton.Equals("left")){
@@ -244,14 +371,14 @@ public class ButtonController : MonoBehaviour
             return;
         }else if (mouseEvent.Equals("down") && mouseButton.Equals("left")){
             audioSources[0].Play();
-            bool flag = sendAction(new Action(Performer.User, ObjectType.Parameter, MotionType.Write, name));
+            bool flag = sendAction(new Action(Performer.User, ObjectType.Parameter, MotionType.Write, name), "");
             if (flag)
             {
                 setValue(myValue.getValue());
             }
         }
     }
-    void returnControll(string mouseEvent, string mouseButton){
+    void resultControll(string mouseEvent, string mouseButton){
         if (mouseEvent.Equals("up") && mouseButton.Equals("right")){
             audioSources[1].Play();
             return;
@@ -259,7 +386,7 @@ public class ButtonController : MonoBehaviour
             return;
         }else if (mouseEvent.Equals("down") && mouseButton.Equals("right")){
             audioSources[0].Play();
-            bool flag = sendAction(new Action(Performer.User, ObjectType.Result, MotionType.Read, name));
+            bool flag = sendAction(new Action(Performer.User, ObjectType.Result, MotionType.Read, name), "");
             if (flag)
             {
                 myValue.setValue(getValue());
@@ -286,10 +413,10 @@ public class ButtonController : MonoBehaviour
             downLever.SetActive(isUP);
             isUP = !isUP;
             upLever.SetActive(isUP);
-            bool flag = sendAction(new Action(Performer.User, ObjectType.InputLever, MotionType.Execute, name));
+            bool flag = sendAction(new Action(Performer.User, ObjectType.InputLever, MotionType.Execute, name), "");
             if (flag)
             {
-                transform.parent.transform.Find("button").transform.Find("Text (TMP)").GetComponent<TextMeshPro>().text = Random.Range(0, 10).ToString();
+                transform.parent.transform.Find("button").transform.Find("Text (TMP)").GetComponent<TextMeshPro>().text = Random.Range(5, 20).ToString();
             }
         }
     }
@@ -309,7 +436,7 @@ public class ButtonController : MonoBehaviour
             downLever.SetActive(isUP);
             isUP = !isUP;
             upLever.SetActive(isUP);
-            bool flag = sendAction(new Action(Performer.User, ObjectType.OutputLever, MotionType.Execute, name));
+            bool flag = sendAction(new Action(Performer.User, ObjectType.OutputLever, MotionType.Execute, name), "");
             if (flag)
             {
                 transform.parent.transform.Find("button").transform.Find("Text (TMP)").GetComponent<TextMeshPro>().text = "";
@@ -317,8 +444,8 @@ public class ButtonController : MonoBehaviour
         }
     }
 
-    public bool sendAction(Action action)
+    public bool sendAction(Action action, string message)
     {
-        return true;
+        return gameController.Execute(action, message);
     }
 }

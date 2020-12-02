@@ -121,12 +121,13 @@
     <Compile Include="Assets\Oculus\VR\Scripts\Util\OVRTrackedRemote.cs" />
     <Compile Include="Assets\Oculus\VR\Scripts\Util\OVRWaitCursor.cs" />
     <Compile Include="Assets\Scripts\Controller\ButtonController.cs" />
+    <Compile Include="Assets\Scripts\Controller\GameController.cs" />
     <Compile Include="Assets\Scripts\Controller\MainController.cs" />
     <Compile Include="Assets\Scripts\Controller\MyValueController.cs" />
+    <Compile Include="Assets\Scripts\Controller\OperatorController.cs" />
     <Compile Include="Assets\Scripts\Controller\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Controller\ScoreBoardController.cs" />
     <Compile Include="Assets\Scripts\Controller\ScriptController.cs" />
-    <Compile Include="Assets\Scripts\Controller\ScriptTest.cs" />
     <Compile Include="Assets\Scripts\Manager\Action.cs" />
     <Compile Include="Assets\Scripts\Manager\ActionRecorder.cs" />
     <Compile Include="Assets\Scripts\Manager\Evaluator.cs" />
@@ -135,7 +136,6 @@
     <Compile Include="Assets\Scripts\Manager\ObjectType.cs" />
     <Compile Include="Assets\Scripts\Manager\Performer.cs" />
     <Compile Include="Assets\Scripts\Manager\ScriptInspector.cs" />
-    <Compile Include="Assets\Scripts\Manager\Test.cs" />
     <Compile Include="Assets\VRInteractions\Examples\Assets\Scripts\Bob.cs" />
     <Compile Include="Assets\VRInteractions\Examples\Assets\Scripts\FadeIn.cs" />
     <Compile Include="Assets\VRInteractions\Examples\Assets\Scripts\LightController.cs" />
@@ -728,31 +728,31 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.13f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/workspace/temp/VR_Programming/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/workspace/VR Project/VR_Programming/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>C:/workspace/temp/VR_Programming/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>C:/workspace/VR Project/VR_Programming/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/workspace/temp/VR_Programming/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/workspace/VR Project/VR_Programming/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/workspace/temp/VR_Programming/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/workspace/VR Project/VR_Programming/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/workspace/temp/VR_Programming/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/workspace/VR Project/VR_Programming/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/workspace/temp/VR_Programming/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/workspace/VR Project/VR_Programming/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>C:/workspace/temp/VR_Programming/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>C:/workspace/VR Project/VR_Programming/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/workspace/temp/VR_Programming/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/workspace/VR Project/VR_Programming/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/workspace/temp/VR_Programming/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/workspace/VR Project/VR_Programming/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>
