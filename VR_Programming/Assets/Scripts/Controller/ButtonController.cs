@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection.Emit;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ButtonController : MonoBehaviour
 {
@@ -65,6 +67,28 @@ public class ButtonController : MonoBehaviour
             case "before":          beforeControll(mouseEvent, mouseButton); break;
             case "next":            afterControll(mouseEvent, mouseButton); break;
             case "condition":       conditionControll(mouseEvent, mouseButton); break;
+            case "back":            BackControll(mouseEvent, mouseButton); break;
+        }
+    }
+
+    private void BackControll(string mouseEvent, string mouseButton)
+    {
+        if (mouseEvent.Equals("up") && mouseButton.Equals("right"))
+        {
+            return;
+        }
+        else if (mouseEvent.Equals("up") && mouseButton.Equals("left"))
+        {
+            audioSources[1].Play();
+            return;
+        }
+        else if (mouseEvent.Equals("down") && mouseButton.Equals("right"))
+        {
+            return;
+        }
+        else if (mouseEvent.Equals("down") && mouseButton.Equals("left"))
+        {
+            gameController.SceneController.callSelectStage();
         }
     }
 
@@ -416,7 +440,7 @@ public class ButtonController : MonoBehaviour
             bool flag = sendAction(new Action(Performer.User, ObjectType.InputLever, MotionType.Execute, name), "");
             if (flag)
             {
-                transform.parent.transform.Find("button").transform.Find("Text (TMP)").GetComponent<TextMeshPro>().text = Random.Range(5, 20).ToString();
+                transform.parent.transform.Find("button").transform.Find("Text (TMP)").GetComponent<TextMeshPro>().text = UnityEngine.Random.Range(5, 20).ToString();
             }
         }
     }

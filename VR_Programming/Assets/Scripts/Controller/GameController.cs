@@ -10,9 +10,12 @@ public class GameController : MonoBehaviour
     ScriptController scriptController;
     ScoreBoardController scoreBoardController;
     OperatorController operatorController;
+    SceneController sceneController;
     string gameSituation;
 
-    public OperatorController OperatorController { get => operatorController; set => operatorController = value; }
+    public OperatorController OperatorController { get => OperatorController1; set => OperatorController1 = value; }
+    public SceneController SceneController { get => sceneController; set => sceneController = value; }
+    public OperatorController OperatorController1 { get => operatorController; set => operatorController = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +25,7 @@ public class GameController : MonoBehaviour
         scriptController = new ScriptController(textScript);
         scoreBoardController = new ScoreBoardController();
         OperatorController = GameObject.Find("OperatorController").GetComponent<OperatorController>();
+        SceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
         gameSituation = "ready";
     }
 
