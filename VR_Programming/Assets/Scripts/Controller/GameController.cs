@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    string textScript;
-    string commandScript;
+    List<string> textScript;
+    List<string> commandScript;
     ScriptInspector scriptInspector;
     ScriptController scriptController;
     ScoreBoardController scoreBoardController;
@@ -20,12 +20,15 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
+        textScript = new List<string>();
+        commandScript = new List<string>();
         ScriptSetting();
-        scriptInspector = new ScriptInspector(commandScript);
-        scriptController = new ScriptController(textScript);
+        scriptInspector = new ScriptInspector(commandScript[sceneController.StageNum-1]);
+        scriptController = new ScriptController(textScript[sceneController.StageNum - 1]);
         scoreBoardController = new ScoreBoardController();
         OperatorController = GameObject.Find("OperatorController").GetComponent<OperatorController>();
-        SceneController = GameObject.Find("SceneController").GetComponent<SceneController>();
+        
         gameSituation = "ready";
     }
 
@@ -62,18 +65,48 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public bool Execute(Action action, string message)
+    {
+        bool isExecutable = scriptInspector.Check(action);
+        if (isExecutable)
+        {
+            scriptInspector.Execute(message);
+            scriptController.ShowScript(scriptInspector.Line);
+        }
+        while (true)
+        {
+            if (scriptInspector.IsFinished())
+                break;
+            if (scriptInspector.CurAction.Performer.Equals(Performer.User))
+            {
+                break;
+            }
+            scriptInspector.Execute(message);
+            if (scriptInspector.IsFinished())
+                break;
+            scriptController.ShowScript(scriptInspector.Line);
+        }
+        return isExecutable;
+    }
+
+    public void TestStep()
+    {
+        scriptInspector.Next();
+        scriptController.ShowScript(scriptInspector.Line);
+    }
+
     public void ScriptSetting()
     {
-        textScript = "a = input()\n"+
+        textScript.Add("a = input()\n" +
                      "b = input()\n" +
                      "c = a + b\n" +
                      "if c <= 20:\n" +
                      "    a = a * 7\n" +
                      "    b = b * 5\n" +
-                     "c = a * b\n"+
-                     "print(c)";
+                     "c = a * b\n" +
+                     "print(c)");
 
-        commandScript = "user execute inputLever inputLever1\t" +
+        commandScript.Add("user execute inputLever inputLever1\t" +
                     "user read input input1\t" +
                     "user write variable a\n" +
 
@@ -124,34 +157,174 @@ public class GameController : MonoBehaviour
 
                     "user read variable c\t" +
                     "user write output output1\t" +
-                    "user execute outputLever outputLever1";
-    }
+                    "user execute outputLever outputLever1");
 
-    public bool Execute(Action action, string message)
-    {
-        bool isExecutable = scriptInspector.Check(action);
-        if (isExecutable)
-        {
-            scriptInspector.Execute(message);
-            scriptController.ShowScript(scriptInspector.Line);
-        }
-        while (true)
-        {
-            if (scriptInspector.IsFinished())
-                break;
-            if (scriptInspector.CurAction.Performer.Equals(Performer.User))
-            {
-                break;
-            }
-            scriptInspector.Execute(message);
-            scriptController.ShowScript(scriptInspector.Line);
-        }
-        return isExecutable;
-    }
+        textScript.Add("a = input()\n" +
+                        "b = input()\n" +
+                        "c = input()\n" +
+                        "d = a\n" +
+                        "if d < a:\n" +
+                        "    d = a\n" +
+                        "if d < b:\n" +
+                        "    d = b\n" +
+                        "if d < c:\n" +
+                        "    d = c\n" +
+                        "print(d)");
+        commandScript.Add(  "user execute inputLever inputLever1\t" +
+                            "user read input input1\t" +
+                            "user write variable a\n" +
 
-    public void TestStep()
-    {
-        scriptInspector.Next();
-        scriptController.ShowScript(scriptInspector.Line);
+                            "user execute inputLever inputLever1\t" +
+                            "user read input input1\t" +
+                            "user write variable b\n" +
+
+                            "user execute inputLever inputLever1\t" + 
+                            "user read input input1\t" +
+                            "user write variable c\n" +
+
+                            "user read variable a\t" +
+                            "user write variable d\n" +
+
+                            "user read variable d\t" +
+                            "user write operand operand1\t" +
+                            "user read variable a\t" +
+                            "user write operand operand2\t" +
+                            "user execute operator <\t" +
+                            "user read result result1\t" +
+                            "user write condition condition1\t" +
+                            "auto jump control control 2\n" +
+
+                            "user read variable a\t" +
+                            "user write variable d\n" +
+
+                            "user read variable d\t" +
+                            "user write operand operand1\t" +
+                            "user read variable b\t" +
+                            "user write operand operand2\t" +
+                            "user execute operator <\t" +
+                            "user read result result1\t" +
+                            "user write condition condition1\t" +
+                            "auto jump control control 2\n" +
+
+                            "user read variable b\t" +
+                            "user write variable d\n" +
+
+                            "user read variable d\t" +
+                            "user write operand operand1\t" +
+                            "user read variable c\t" +
+                            "user write operand operand2\t" +
+                            "user execute operator <\t" +
+                            "user read result result1\t" +
+                            "user write condition condition1\t" +
+                            "auto jump control control 2\n" +
+
+                            "user read variable c\t" +
+                            "user write variable d\n" +
+
+                            "user read variable d\t" +
+                            "user write output output1\t" +
+                            "user execute outputLever outputLever1");
+
+        textScript.Add( "a = 3\n" +
+                        "b = 5\n" +
+                        "c = 2\n" +
+                        "if a > b:\n" +
+                        "    d = a\n" +
+                        "    a = b\n" +
+                        "    b = d\n" +
+                        "if b > c:\n" +
+                        "    d = b\n" +
+                        "    b = c\n" +
+                        "    c = d\n" +
+                        "if a > b:\n" +
+                        "    d = a\n" +
+                        "    a = b\n" +
+                        "    b = d\n" +
+                        "if b > c:\n" +
+                        "    d = b\n" +
+                        "    b = c\n" +
+                        "    c = d");
+        
+        commandScript.Add(  "user read constant 3\t" +
+                            "user write variable a\n" +
+
+                            "user read constant 5\t" +
+                            "user write variable b\n" +
+
+                            "user read constant 2\t" +
+                            "user write variable c\n" +
+
+                            "user read variable a\t" +
+                            "user write operand operand1\t" +
+                            "user read variable b\t" +
+                            "user write operand operand2\t" +
+                            "user execute operator >\t" +
+                            "user read result result1\t" +
+                            "user write condition condition1\t" +
+                            "auto jump control control 4\n" +
+
+                            "user read variable a\t" +
+                            "user write variable d\n" +
+
+                            "user read variable b\t" +
+                            "user write variable a\n" +
+
+                            "user read variable d\t" +
+                            "user write variable b\n" +
+
+                            "user read variable b\t" +
+                            "user write operand operand1\t" +
+                            "user read variable c\t" +
+                            "user write operand operand2\t" +
+                            "user execute operator >\t" +
+                            "user read result result1\t" +
+                            "user write condition condition1\t" +
+                            "auto jump control control 4\n" +
+
+                            "user read variable b\t" +
+                            "user write variable d\n" +
+
+                            "user read variable c\t" +
+                            "user write variable b\n" +
+
+                            "user read variable d\t" +
+                            "user write variable c\n" +
+
+                            "user read variable a\t" +
+                            "user write operand operand1\t" +
+                            "user read variable b\t" +
+                            "user write operand operand2\t" +
+                            "user execute operator >\t" +
+                            "user read result result1\t" +
+                            "user write condition condition1\t" +
+                            "auto jump control control 4\n" +
+
+                            "user read variable a\t" +
+                            "user write variable d\n" +
+
+                            "user read variable b\t" +
+                            "user write variable a\n" +
+
+                            "user read variable d\t" +
+                            "user write variable b\n" +
+
+                            "user read variable b\t" +
+                            "user write operand operand1\t" +
+                            "user read variable c\t" +
+                            "user write operand operand2\t" +
+                            "user execute operator >\t" +
+                            "user read result result1\t" +
+                            "user write condition condition1\t" +
+                            "auto jump control control 4\n" +
+
+                            "user read variable b\t" +
+                            "user write variable d\n" +
+
+                            "user read variable c\t" +
+                            "user write variable b\n" +
+
+                            "user read variable d\t" +
+                            "user write variable c");
+
     }
 }

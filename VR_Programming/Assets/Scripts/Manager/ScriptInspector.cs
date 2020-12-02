@@ -34,8 +34,9 @@ public class ScriptInspector
             {
                 if (message.Equals("False"))
                 {
+                    LineInspector curLineInspector = CurLineInspector;
                     Jump(CurAction.JumpSize);
-                    CurLineInspector.Init();
+                    curLineInspector.Init();
                 }
                 else
                 {

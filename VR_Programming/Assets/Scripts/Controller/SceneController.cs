@@ -6,12 +6,15 @@ using UnityEngine.EventSystems;
 
 public class SceneController : MonoBehaviour
 {
-    public static string stageName;
+    public static int stageNum;
+
+    public int StageNum { get => stageNum; set => stageNum = value; }
 
     // 게임 화면으로 이동
     public void callGame()
     {
-        stageName = EventSystem.current.currentSelectedGameObject.name;
+        string stageName = EventSystem.current.currentSelectedGameObject.name;
+        stageNum = int.Parse(stageName.Substring(5));
         SceneManager.LoadScene("GameScene");
     }
 
