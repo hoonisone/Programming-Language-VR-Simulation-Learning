@@ -56,6 +56,11 @@ public class ScriptController : MonoBehaviour
         }
     }
 
+
+    public int getScriptLength()
+    {
+        return nLines;
+    }
 }
 
 

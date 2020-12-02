@@ -5,8 +5,13 @@ using UnityEngine;
 public class ScriptTest : MonoBehaviour
 {
     ScriptController SC = new ScriptController();
+    ScoreBoardController SBC = new ScoreBoardController();
 
     int curLine = 1;
+    int[] scores;
+    int[] maxScores;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,17 +33,46 @@ public class ScriptTest : MonoBehaviour
 
         SC.SetLine(tscript);
         SC.ShowScript(curLine);
+
+
+        SBC.HideScoreBoard();
+        scores = new int[4];
+        scores[0] = 26;
+        scores[1] = 25;
+        scores[2] = 19;
+        scores[3] = 36;
+
+        maxScores = new int[4];
+        maxScores[0] = 30;
+        maxScores[1] = 30;
+        maxScores[2] = 20;
+        maxScores[3] = 40;
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
         AudioSource audioSource = gameObject.GetComponent<AudioSource>();
-
+        
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             audioSource.Play();
             SC.ShowScript(++curLine);
+            if(curLine == SC.getScriptLength() + 1)
+            {
+                //자동으로는 이렇게
+                SBC.PrintScore(scores, maxScores);
+
+                // 직접 넣으려면 이렇게
+                SBC.SetStars(1);
+                SBC.SetTotalScore(15);
+                SBC.SetDetailScores(scores, maxScores);
+                SBC.PrintScore();
+                
+            }
+
         }
     }
 }
